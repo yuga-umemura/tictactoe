@@ -4,15 +4,21 @@ import Square from './Square';
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
 
+  const [xIsNext, setXIsNext] = useState(true);
+
   const handleClick = (i: number): void => {
     const squareCopy = squares.slice();
-    squareCopy[i] = 'X';
+    squareCopy[i] = xIsNext ? 'X' : 'O';
     setSquares(squareCopy);
+    setXIsNext(!xIsNext);
   };
+
+  const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   // Boardコンポーネント側のstateが変わると、Squareコンポーネントも再描画される
   return (
     <div>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
