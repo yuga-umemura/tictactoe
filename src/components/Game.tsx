@@ -1,5 +1,5 @@
-import React from 'react'
-import Board from './Board'
+import React from 'react';
+import Board from './Board';
 
 const Game = () => {
   return (
@@ -8,7 +8,7 @@ const Game = () => {
         <Board />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;

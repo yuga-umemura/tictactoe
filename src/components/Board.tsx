@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { calculateWinner } from '../helpers/calculateWinner';
 import Square from './Square';
 
 const Board = () => {
@@ -8,12 +9,21 @@ const Board = () => {
 
   const handleClick = (i: number): void => {
     const squareCopy = squares.slice();
+    if (calculateWinner(squareCopy) || squareCopy[i]) {
+      return;
+    }
     squareCopy[i] = xIsNext ? 'X' : 'O';
     setSquares(squareCopy);
     setXIsNext(!xIsNext);
   };
 
-  const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+  const winner = calculateWinner(squares);
+  let status: string;
+  if (winner) {
+    status = `Winner: ${winner}`;
+  } else {
+    status = `Next platyer: ${xIsNext} ? 'X' : 'O'`;
+  }
 
   // Boardコンポーネント側のstateが変わると、Squareコンポーネントも再描画される
   return (
