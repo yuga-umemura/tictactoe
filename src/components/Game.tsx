@@ -5,6 +5,7 @@ const Game = () => {
   const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const currentSquares = history[history.length - 1];
+  const [currentMove, setCurrentMove] = useState(0);
 
   const handlePlay = (nextSquares: string[]) => {
     setHistory([...history, nextSquares]);
@@ -12,7 +13,10 @@ const Game = () => {
   };
 
   const jumpTo = (nextMove: number) => {
-    //todo
+    const nextHistory = history.slice(0, currentMove + 1);
+    setHistory(nextHistory);
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
   };
 
   const moves = history.map((squares: string[], move: number) => {
@@ -36,13 +40,8 @@ const Game = () => {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
           <ol>{moves}</ol>
         </div>
-      </div>
-      <div className="game-info">
-        <div>{/* status */}</div>
-        <ol>{/* TODO */}</ol>
       </div>
     </div>
   );
