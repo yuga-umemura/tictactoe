@@ -11,6 +11,20 @@ const Game = () => {
     setXIsNext(!xIsNext);
   };
 
+  const jumpTo = (nextMove: number) => {
+    //todo
+  };
+
+  const moves = history.map((squares: string[], move: number) => {
+    const description: string =
+      move > 0 ? `Go to move #${move}` : 'Go to game start';
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
   return (
     <div>
       <div className="game">
@@ -23,7 +37,7 @@ const Game = () => {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
       <div className="game-info">
