@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { calculateWinner } from '../helpers/calculateWinner';
 import Square from './Square';
 
-const Board = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-
-  const [xIsNext, setXIsNext] = useState(true);
-
-  const handleClick = (i: number): void => {
-    const squareCopy = squares.slice();
-    if (calculateWinner(squareCopy) || squareCopy[i]) {
+const Board = ({
+  xIsNext,
+  squares,
+  onPlay,
+}: {
+  xIsNext: boolean;
+  squares: string[];
+  onPlay: (nextSquares: string[]) => void;
+}) => {
+  const handleClick = (i: number) => {
+    if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squareCopy[i] = xIsNext ? 'X' : 'O';
-    setSquares(squareCopy);
-    setXIsNext(!xIsNext);
+    console.log(squares);
+    try {
+      const nextSquares = squares.slice();
+      nextSquares[i] = xIsNext ? 'X' : 'O';
+      onPlay(nextSquares);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const winner = calculateWinner(squares);
